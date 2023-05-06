@@ -17,4 +17,5 @@ FROM node:18 AS deploy-node
 WORKDIR /
 COPY --from=build /package.json .
 COPY --from=build /build-node .
+RUN npm install --production
 CMD ["node", "index.js"]
