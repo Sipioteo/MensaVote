@@ -1,4 +1,3 @@
-// @ts-nocheck
 import memoize from 'fast-memoize';
 
 const _getAuthUrl = memoize(async () => {
