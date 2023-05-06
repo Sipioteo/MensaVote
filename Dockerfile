@@ -2,8 +2,8 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 COPY . .
-RUN npm prepare
-RUN npm build
+RUN npm run prepare
+RUN npm run build
 
 FROM nginx:1.23.3-alpine-slim AS deploy-static
 
