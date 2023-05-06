@@ -12,7 +12,7 @@ WORKDIR /usr/share/nginx/html
 COPY --from=build /build-static .
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
-FROM node:18-alpine AS deploy-node
+FROM node:18 AS deploy-node
 
 WORKDIR /
 COPY --from=build /package.json .
