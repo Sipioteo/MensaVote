@@ -2,7 +2,7 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 COPY . .
-RUN npm
+RUN npm install
 RUN npm run prepare
 RUN npm run build
 
