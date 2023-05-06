@@ -2,10 +2,8 @@ FROM node:18 AS build
 
 WORKDIR /
 
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install
 COPY . ./
+RUN npm install
 RUN npm run prepare
 RUN npm run build
 

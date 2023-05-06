@@ -8,7 +8,7 @@
 	onMount(async () => {
 		const issuer = 'https://authmensa.luminos.dev';
 		const clientId = '212205468813164598@website';
-		const redirectUri = 'http://localhost:5173/auth/redirect';
+		const redirectUri = 'https://votemensa.luminos.dev/auth/redirect';
 		const scope = 'openid profile email offline_access';
 		const responseType = 'code';
 		const wellKnownConfig = await fetch(`${issuer}/.well-known/openid-configuration`);

@@ -1,21 +1,20 @@
+import { env } from '$env/dynamic/private';
+
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ url }) {
 	if (!url.searchParams.has('code')) {
 		return {};
 	}
 
-	let tokenUrl = 'https://authmensa.luminos.dev/oauth/v2/token';
+	let authEndpoints = await retrieveAuthEndpoints();
 	let tokenBody = new URLSearchParams();
 	tokenBody.append('grant_type', 'authorization_code');
-	tokenBody.append('client_id', '212205468813164598@website');
-	tokenBody.append(
-		'client_secret',
-		'ZhTynXTX2q5onLbwS0qhyFvh8LymZkw4ZyhQ71K7XE7mQfEZDLvMNP7wZShkLHEP'
-	);
-	tokenBody.append('redirect_uri', 'http://localhost:5173/auth/redirect');
+	tokenBody.append('client_id', env.CLIENT_ID || '212205468813164598@website');
+	tokenBody.append('client_secret', env.CLIENT_SECRET || 'ZhTynXTX2q5onLbwS0qhyFvh8LymZkw4ZyhQ71K7XE7mQfEZDLvMNP7wZShkLHEP');
+	tokenBody.append('redirect_uri', `${env.BASE_URL || 'http://localhost:5173'}/auth/redirect`);
 	tokenBody.append('code', url.searchParams.get('code') || '');
 
-	let tokenResponse = await fetch(tokenUrl, {
+	let tokenResponse = await fetch(authEndpoints.token_endpoint, {
 		method: 'POST',
 		body: tokenBody,
 		headers: {
@@ -24,7 +23,7 @@ export async function load({ url }) {
 	});
 	let token = await tokenResponse.json();
 
-	let userResponse = await fetch('https://authmensa.luminos.dev/oidc/v1/userinfo', {
+	let userResponse = await fetch(authEndpoints.userinfo_endpoint, {
 		headers: {
 			Authorization: `Bearer ${token.access_token}`
 		}
@@ -35,4 +34,10 @@ export async function load({ url }) {
 		token: token,
 		user_data: userData
 	};
+}
+
+async function retrieveAuthEndpoints() {
+	let response = await fetch(`${env.AUTH_URL || 'https://authmensa.luminos.dev'}/.well-known/openid-configuration`);
+	let data = await response.json();
+	return data;
 }
