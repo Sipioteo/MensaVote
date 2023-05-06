@@ -40,6 +40,8 @@
 		"@macfja/svelte-oauth2": "^1.1.0",
 		"@sveltejs/adapter-node": "^1.2.4",
 		"@sveltejs/adapter-static": "^2.0.2",
-		"dotenv": "^16.0.3"
+		"dotenv": "^16.0.3",
+		"fast-memoize": "^2.5.2",
+		"memoize": "^0.1.1"
 	}
 }

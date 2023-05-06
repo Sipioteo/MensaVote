@@ -1,6 +1,7 @@
 import { c as create_ssr_component, b as compute_rest_props, d as get_current_component, f as spread, h as escape_object, i as add_attribute, j as is_void, g as getContext, s as setContext, o as onDestroy, v as validate_component, k as each, l as globals, m as missing_component, e as escape, n as escape_attribute_value, a as subscribe, p as set_store_value } from './index2-0a3d7029.js';
 import { f as forwardEventsBuilder, c as classMap, a as auth } from './store-e8b91335.js';
 import { r as readable, w as writable } from './index-b5cc99b4.js';
+import memoize from 'fast-memoize';
 
 /**
  * Stores result from supportsCssVariables to avoid redundant processing to
@@ -2089,6 +2090,18 @@ function InitialFocus(node) {
     }
   };
 }
+memoize(async () => {
+  const issuer = "https://authmensa.luminos.dev";
+  const clientId = "212205468813164598@website";
+  const redirectUri = "https://votemensa.luminos.dev/auth/redirect";
+  const scope = "openid profile email offline_access";
+  const responseType = "code";
+  const wellKnownConfig = await fetch(`${issuer}/.well-known/openid-configuration`);
+  const wellKnownConfigJson = await wellKnownConfig.json();
+  const authorizationEndpoint = wellKnownConfigJson.authorization_endpoint;
+  const state = "{{state}}";
+  return `${authorizationEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&state=${state}`;
+});
 const css$2 = {
   code: ".userImage.svelte-33q1dt{border-radius:50%;width:45px;height:45px;border:3px solid rgba(21, 78, 162, 1)}.profile-chip.svelte-33q1dt{border-radius:50px;height:100%;padding-left:20px;max-height:45px}",
   map: null
@@ -2490,4 +2503,4 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-8275846c.js.map
+//# sourceMappingURL=_page.svelte-c722bdd6.js.map

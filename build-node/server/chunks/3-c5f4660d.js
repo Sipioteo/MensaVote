@@ -8,7 +8,10 @@ async function load({ url }) {
   let tokenBody = new URLSearchParams();
   tokenBody.append("grant_type", "authorization_code");
   tokenBody.append("client_id", private_env.CLIENT_ID || "212205468813164598@website");
-  tokenBody.append("client_secret", private_env.CLIENT_SECRET || "ZhTynXTX2q5onLbwS0qhyFvh8LymZkw4ZyhQ71K7XE7mQfEZDLvMNP7wZShkLHEP");
+  tokenBody.append(
+    "client_secret",
+    private_env.CLIENT_SECRET || "ZhTynXTX2q5onLbwS0qhyFvh8LymZkw4ZyhQ71K7XE7mQfEZDLvMNP7wZShkLHEP"
+  );
   tokenBody.append("redirect_uri", `${private_env.BASE_URL || "http://localhost:5173"}/auth/redirect`);
   tokenBody.append("code", url.searchParams.get("code") || "");
   let tokenResponse = await fetch(authEndpoints.token_endpoint, {
@@ -31,7 +34,9 @@ async function load({ url }) {
   };
 }
 async function retrieveAuthEndpoints() {
-  let response = await fetch(`${private_env.AUTH_URL || "https://authmensa.luminos.dev"}/.well-known/openid-configuration`);
+  let response = await fetch(
+    `${private_env.AUTH_URL || "https://authmensa.luminos.dev"}/.well-known/openid-configuration`
+  );
   let data = await response.json();
   return data;
 }
@@ -49,4 +54,4 @@ const stylesheets = ["_app/immutable/assets/_page.ee3a75c9.css"];
 const fonts = [];
 
 export { component, fonts, imports, index, _page_server as server, server_id, stylesheets };
-//# sourceMappingURL=3-2d5b7f38.js.map
+//# sourceMappingURL=3-c5f4660d.js.map

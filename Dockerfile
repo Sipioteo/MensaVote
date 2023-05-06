@@ -6,13 +6,6 @@ RUN npm install
 RUN npm run prepare
 RUN npm run build
 
-FROM nginx:1.23.3-alpine-slim AS deploy-static
-
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=build /app/build-static .
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
-
 FROM node:18-alpine AS deploy-node
 
 WORKDIR /app

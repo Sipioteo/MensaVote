@@ -160,7 +160,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1qmj34p"
+  version_hash: "1ms07h5"
 };
 function get_hooks() {
   return {};
@@ -3713,7 +3713,7 @@ async function respond(request, options2, manifest, state) {
     fetch: null,
     getClientAddress: state.getClientAddress || (() => {
       throw new Error(
-        `${"@macfja/svelte-adapter-multi"} does not specify getClientAddress. Please raise an issue`
+        `${"@sveltejs/adapter-node"} does not specify getClientAddress. Please raise an issue`
       );
     }),
     locals: {},
