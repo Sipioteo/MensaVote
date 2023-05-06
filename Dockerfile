@@ -6,6 +6,7 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm install
 COPY . ./
+RUN npm run prepare
 RUN npm run build
 
 FROM nginx:1.23.4-alpine
