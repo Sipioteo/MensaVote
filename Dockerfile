@@ -9,14 +9,12 @@ RUN npm run build
 FROM nginx:1.23.3-alpine-slim AS deploy-static
 
 WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
 COPY --from=build /build-static .
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 FROM node:18-alpine AS deploy-node
 
 WORKDIR /
-RUN rm -rf ./*
 COPY --from=build /package.json .
 COPY --from=build /build-node .
 CMD ["node", "index.js"]
