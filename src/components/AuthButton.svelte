@@ -3,7 +3,7 @@
 	import Button, { Label } from '@smui/button';
 	import { InitialFocus } from '@smui/dialog';
 	import { auth } from '../store.js';
-	import { getAuthUrl } from '../fn/mem.js';
+	import { getAuthUrl } from './AuthButton.js';
 	let authUrl = '';
 
 	onMount(async () => {
