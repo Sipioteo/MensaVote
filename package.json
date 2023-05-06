@@ -30,18 +30,18 @@
 	"dependencies": {
 		"@macfja/svelte-multi-adapter": "^1.0.2",
 		"@macfja/svelte-oauth2": "^1.1.0",
-		"@sveltejs/adapter-node": "^1.2.4",
-		"@sveltejs/adapter-static": "^2.0.2",
-		"dotenv": "^16.0.3",
-		"fast-memoize": "^2.5.2",
 		"@smui/button": "^7.0.0-beta.8",
 		"@smui/circular-progress": "^7.0.0-beta.8",
 		"@smui/dialog": "^7.0.0-beta.8",
 		"@smui/top-app-bar": "^7.0.0-beta.8",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-node": "^1.2.4",
+		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/kit": "^1.5.0",
+		"dotenv": "^16.0.3",
+		"fast-memoize": "^2.5.2",
+		"memoize": "^0.1.1",
 		"smui-theme": "^7.0.0-beta.8",
-		"svelte": "^3.54.0",
-		"memoize": "^0.1.1"
+		"svelte": "^3.54.0"
 	}
 }

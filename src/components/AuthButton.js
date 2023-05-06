@@ -1,5 +1,7 @@
 import memoize from 'fast-memoize';
 
+export const ssr = false;
+
 const _getAuthUrl = memoize(async () => {
 	const issuer = 'https://authmensa.luminos.dev';
 	const clientId = '212205468813164598@website';
