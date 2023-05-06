@@ -15,7 +15,9 @@ ENTRYPOINT ["nginx", "-g", "daemon off;"]
 FROM node:18 AS deploy-node
 
 WORKDIR /
-COPY --from=build /package.json .
-COPY --from=build /build-node .
-RUN npm install --production
-CMD ["node", "index.js"]
+COPY --from=build / .
+RUN npm install
+
+EXPOSE 3000
+#Run node index.js from build-node
+ENTRYPOINT ["node", "build-node/index.js"]
