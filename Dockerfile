@@ -1,6 +1,6 @@
 FROM node:18-alpine AS build
 
-WORKDIR /app
+WORKDIR /
 COPY . .
 RUN npm install
 RUN npm run prepare
@@ -10,13 +10,13 @@ FROM nginx:1.23.3-alpine-slim AS deploy-static
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
-COPY --from=build /app/build-static .
+COPY --from=build /build-static .
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 FROM node:18-alpine AS deploy-node
 
-WORKDIR /app
+WORKDIR /
 RUN rm -rf ./*
-COPY --from=build /app/package.json .
-COPY --from=build /app/build-node .
+COPY --from=build /package.json .
+COPY --from=build /build-node .
 CMD ["node", "index.js"]
