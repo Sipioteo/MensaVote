@@ -1,0 +1,30 @@
+@use 'sass:color';
+
+@use '@material/theme/color-palette';
+
+@use '@material/theme/index' as theme with (
+	$primary: #fff,
+	$secondary: #fff,
+	$surface: #154ea2,
+	$background: #154ea2,
+	$error: red
+);
+
+@use '@material/shape/index' as shape with (
+	$small-component-radius: 30px,
+	$medium-component-radius: 30px,
+	$large-component-radius: 30px
+);
+
+html,
+body {
+	background-color: theme.$background;
+	color: theme.$on-surface;
+}
+
+a {
+	color: theme.$primary;
+}
+a:visited {
+	color: theme.$primary;
+}
