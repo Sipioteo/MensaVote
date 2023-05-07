@@ -13,6 +13,8 @@
 	function openUrl() {
 		window.open(authUrl, '_self');
 	}
+	// @ts-ignore
+	const handleError = (ev) => (ev.target.src = '/profile.png');
 </script>
 
 {#if auth.getUser().sub == undefined && authUrl != ''}
@@ -29,10 +31,10 @@
 			</p>
 			<p class="p-0 m-0 fw-light text-end" style="font-size: 0.7em;">{auth.getUser().email}</p>
 		</div>
-		<img src={auth.getUser().picture} alt="user_image" class="userImage" />
+		<img src={auth.getUser().picture} alt="user_image" class="userImage" on:error={handleError} />
 	</div>
 	<div class="d-flex d-md-none">
-		<img src={auth.getUser().picture} alt="user_image" class="userImage" />
+		<img src={auth.getUser().picture} alt="user_image" class="userImage" on:error={handleError} />
 	</div>
 {/if}
 
