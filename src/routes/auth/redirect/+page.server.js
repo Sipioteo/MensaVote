@@ -6,8 +6,12 @@ export async function load({ url }) {
 		return {};
 	}
 
-	let authEndpoints = await retrieveAuthEndpoints();
-	let tokenBody = new URLSearchParams();
+	
+	const response = await fetch(
+		`${env.AUTH_URL || 'https://authmensa.luminos.dev'}/.well-known/openid-configuration`
+	);
+	const authEndpoints = await response.json();
+	const tokenBody = new URLSearchParams();
 	tokenBody.append('grant_type', 'authorization_code');
 	tokenBody.append('client_id', env.CLIENT_ID || '212205468813164598@website');
 	tokenBody.append(
@@ -17,32 +21,24 @@ export async function load({ url }) {
 	tokenBody.append('redirect_uri', `${env.BASE_URL || 'http://localhost:5173'}/auth/redirect`);
 	tokenBody.append('code', url.searchParams.get('code') || '');
 
-	let tokenResponse = await fetch(authEndpoints.token_endpoint, {
+	const tokenResponse = await fetch(authEndpoints.token_endpoint, {
 		method: 'POST',
 		body: tokenBody,
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
 	});
-	let token = await tokenResponse.json();
+	const token = await tokenResponse.json();
 
-	let userResponse = await fetch(authEndpoints.userinfo_endpoint, {
+	const userResponse = await fetch(authEndpoints.userinfo_endpoint, {
 		headers: {
 			Authorization: `Bearer ${token.access_token}`
 		}
 	});
-	let userData = await userResponse.json();
+	const userData = await userResponse.json();
 
 	return {
 		token: token,
 		user_data: userData
 	};
-}
-
-async function retrieveAuthEndpoints() {
-	let response = await fetch(
-		`${env.AUTH_URL || 'https://authmensa.luminos.dev'}/.well-known/openid-configuration`
-	);
-	let data = await response.json();
-	return data;
 }
