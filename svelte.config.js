@@ -7,15 +7,7 @@ import preprocess from 'svelte-preprocess';
 const config = {
 	preprocess: preprocess(),
 	kit: {
-		adapter: adapterMulti([
-			adapterNode({ out: 'build-node', precompress: false }),
-			adapterStatic({
-				pages: 'build-static',
-				assets: 'build-static',
-				precompress: false,
-				fallback: '/index.html'
-			})
-		])
+		adapter: adapterNode({ out: 'build-node', precompress: false }),
 	}
 };
 
