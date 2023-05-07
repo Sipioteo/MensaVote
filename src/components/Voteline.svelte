@@ -26,8 +26,7 @@
 <div class="d-flex d-md-none flex-column px-3 py-3 pt-2 align-items-stretch gap-3">
 	<div class="d-flex flex-row">
 		<div class="d-flex flex-column text-justify align-items-start fw-bold">
-			<p>AG19F7</p>
-			<p>Voto per il consiglio</p>
+			<p>#{id} | {name}</p>
 		</div>
 	</div>
 	<button class="btn btn-light fw-bold w-100" on:click={onPressedVote}>VOTA</button>

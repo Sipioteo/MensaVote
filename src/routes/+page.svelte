@@ -19,7 +19,8 @@
 		fetch('/api/poll', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${auth.token}`
 			},
 			body: JSON.stringify({
 				name: 'Test'
