@@ -41,7 +41,11 @@
 		"dotenv": "^16.0.3",
 		"fast-memoize": "^2.5.2",
 		"memoize": "^0.1.1",
+		"pg": "^8.10.0",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.31.1",
 		"smui-theme": "^7.0.0-beta.8",
+		"sqlite3": "^5.1.6",
 		"svelte": "^3.54.0"
 	}
 }
