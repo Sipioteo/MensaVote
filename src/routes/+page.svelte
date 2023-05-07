@@ -9,10 +9,7 @@
 	import { onMount } from 'svelte';
 
 	let polls = [];
-
-	/** @type {import('./$types').PageData} */
-	export let data;
-
+	
 	onMount(async () => {
 		const res = await fetch('/api/poll');
 		polls = await res.json();

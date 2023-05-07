@@ -1,37 +1,36 @@
 // @ts-nocheck
 import { Sequelize, DataTypes } from 'sequelize';
+import fs from 'fs';
 
 const sequelize = new Sequelize({
 	dialect: 'sqlite',
 	storage: './database.sqlite'
 });
 
+const DB = await _DB();
+
 async function initModels() {
-	const Poll = sequelize.define('Poll', {
+	sequelize.define('Poll', {
 		name: {
 			type: DataTypes.STRING
 		}
 	});
-	await sequelize.sync({ force: true });
+	await sequelize.sync();
 }
 
-export async function dbIsInitialized() {
-	try {
-		if (sequelize.models.Poll) {
-			return true;
-		}
-		await sequelize.authenticate();
-		await initModels();
-		return true;
-	} catch (error) {
-		return false;
+export async function _DB() {
+	if (sequelize.models.Poll) {
+		return sequelize;
 	}
+	await sequelize.authenticate();
+	await initModels();
+	return sequelize;
 }
 
 export async function getPolls() {
-	return JSON.parse(JSON.stringify(await sequelize.models.Poll.findAll()));
+	return JSON.parse(JSON.stringify(await DB.models.Poll.findAll()));
 }
 
 export async function addPoll(name) {
-	return await sequelize.models.Poll.create({ name });
+	return await DB.models.Poll.create({ name });
 }
