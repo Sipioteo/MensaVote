@@ -1,38 +1,31 @@
-# create-svelte
+# MensaVote
+#### Example repo for MensaOnline on how to make code login with MensaOnline
+---
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This repo is built to make the vote of Mensa Online open and verifiable by anyone. The project aim to the possibility to vote anonymously and to verify the result of the vote.
 
-## Creating a project
+To run this project in a docker environment you need to install docker and docker-compose.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+To run the project you need to run the following command (We assume that you will proxy the project with traefik):
+```yaml
+vote:
+    image: ghcr.io/sipioteo/mensavote:master
+    networks:
+      - default
+      - traefik
+    environment:
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - BASE_URL=https://${DOMAIN}
+      - AUTH_URL=https://${AUTH_DOMAIN}
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik"
+        - "traefik.http.routers.${HOSTNAME}-vote.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${HOSTNAME}-vote.service=${HOSTNAME}-vote-svc"
+        - "traefik.http.routers.${HOSTNAME}-vote.entrypoints=websecure"
+        - "traefik.http.routers.${HOSTNAME}-vote.tls.certresolver=secure"
+        - "traefik.http.services.${HOSTNAME}-vote-svc.loadbalancer.server.port=3000"
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
